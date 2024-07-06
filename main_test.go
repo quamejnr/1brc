@@ -25,7 +25,7 @@ Dodoma;22.2
 
 	r := bytes.NewBufferString(d)
 
-	got := brc(r)
+	got, _ := brc(r)
 
 	if compareMaps(got, want) {
 		t.Errorf("want %v got %v\n", want, got)

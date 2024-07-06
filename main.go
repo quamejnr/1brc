@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"io"
-	"math"
 	"os"
 	"slices"
 	"strconv"
@@ -18,25 +17,19 @@ type Record struct {
 
 type records map[string]*Record
 
-func sort(data records) []string {
-	cities := []string{}
-
-	for c := range data {
-		cities = append(cities, c)
-	}
-
+func sort(cities []string) {
 	slices.Sort(cities)
-	return cities
 }
 
-func brc(r io.Reader) records {
+func brc(r io.Reader) (records, []string) {
+	cities := []string{}
 	records := records{}
 	s := bufio.NewScanner(r)
 	for s.Scan() {
-		if line := s.Text(); strings.TrimSpace(line) != "" {
-			d := strings.Split(line, ";")
-			city := d[0]
-			temp, _ := strconv.ParseFloat(d[1], 32)
+		line := s.Text()
+		city, val, found := strings.Cut(line, ";")
+		if found {
+			temp, _ := strconv.ParseFloat(val, 64)
 
 			r, ok := records[city]
 			if !ok {
@@ -45,17 +38,19 @@ func brc(r io.Reader) records {
 					min: temp,
 				}
 				records[city] = r
-				// pass new cities into a slice to be sorted later
+				cities = append(cities, city)
 			}
 
-			r.max = math.Max(r.max, temp)
-			r.min = math.Min(r.min, temp)
+			r.max = max(r.max, temp)
+			r.min = min(r.min, temp)
 			r.count++
 			r.sum += temp
+
 		}
+
 	}
 
-	return records
+	return records, cities
 
 }
 
@@ -63,8 +58,8 @@ func main() {
 	f, _ := os.Open(os.Args[1])
 	defer f.Close()
 
-	records := brc(f)
-	cities := sort(records)
+	records, cities := brc(f)
+	sort(cities)
 
 	fmt.Fprint(os.Stdout, "{")
 
