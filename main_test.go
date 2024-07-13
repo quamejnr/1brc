@@ -24,12 +24,35 @@ Dodoma;22.2
 	}
 
 	r := bytes.NewBufferString(d)
+	r := makeData()
 
 	got, _ := brc(r)
 
 	if compareMaps(got, want) {
 		t.Errorf("want %v got %v\n", want, got)
 	}
+
+}
+
+func BenchmarkTestBRC(b *testing.B) {
+  r := makeData()
+  b.ResetTimer()
+	for range b.N {
+		brc(r)
+	}
+}
+
+func makeData() io.Reader {
+	d := `
+Halifax;12.9
+Cabo San Lucas;14.9
+Adelaide;15.0
+Pittsburgh;9.7
+Karachi;15.4
+Dodoma;22.2
+  `
+	r := bytes.NewBufferString(d)
+	return r
 
 }
 
