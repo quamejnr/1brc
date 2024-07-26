@@ -1,10 +1,10 @@
 package main
 
 import (
-	"1brcme/brc1"
+	"1brcme/brc2"
 	"os"
 )
 
 func main() {
-	brc1.PrintBRC(os.Args[1])
+	brc2.PrintBRC(os.Args[1])
 }

@@ -21,14 +21,6 @@ Dodoma;22.2
 }
 
 func TestBRC(t *testing.T) {
-	d := `
-Halifax;12.9
-Cabo San Lucas;14.9
-Adelaide;15.0
-Pittsburgh;9.7
-Karachi;15.4
-Dodoma;22.2
-  `
 	want := records{
 		"Adelaide":       &Record{min: 15.0, max: 15.0, count: 1, sum: 15.0},
 		"Cabo San Lucas": &Record{min: 14.9, max: 14.9, count: 1, sum: 14.9},
@@ -38,8 +30,7 @@ Dodoma;22.2
 		"Pittsburgh":     &Record{min: 9.7, max: 9.7, count: 1, sum: 9.7},
 	}
 
-	r := bytes.NewBufferString(d)
-	r = makeData()
+	r := makeData()
 
 	t.Run("test brc", func(t *testing.T) {
 		got, _ := Brc(r)

@@ -2,7 +2,9 @@ package main
 
 import (
 	"1brcme/brc1"
+	"1brcme/brc2"
 	"bytes"
+	"os"
 	"testing"
 )
 
@@ -21,10 +23,23 @@ Dodoma;22.2
 }
 
 func BenchmarkTestBRC(b *testing.B) {
-	r := makeData()
-	b.Run("brc1", func(b *testing.B) {
+	b.Run("brc-1", func(b *testing.B) {
+		r, err := os.Open("measurements-1.txt")
+		if err != nil {
+			b.Fatal("error opening file")
+		}
+		defer r.Close()
 		for range b.N {
 			brc1.Brc(r)
+		}
+	})
+	b.Run("brc2", func(b *testing.B) {
+		r, err := os.Open("measurements-1.txt")
+		if err != nil {
+			b.Fatal("error opening file")
+		}
+		for range b.N {
+			brc2.Brc(r)
 		}
 	})
 }
