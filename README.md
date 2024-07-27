@@ -14,4 +14,6 @@ This reduced the time by circa `45s`. New time is `1:35s`
 - Also, moved from `scanner.Text` to `scanner.Bytes` so I can work with bytes.
 Reduced our time by circa `30s` putting as around `1:06s` now
 
-
+### Third optimizaton - 56s
+- Moved from `scanner` to `ReadSlice` since scanner was doing some extra checks which I don't need here.
+- Moved from `bytes.Cut` to a custom function `cut` that starts reading the lines from the end so we reach our delimiter faster
