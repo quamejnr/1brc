@@ -9,7 +9,7 @@ First naive implementation took `2:15s`
 `strings.Split` will walk through the whole line looking for the separator but `strings.Cut` returns immediately it finds one which is more appropriate here.
 This reduced the time by circa `45s`. New time is `1:35s`
 
-### Second optimization - 1m6s
+### Second optimization - 1m06s
 - Since the temperatures are more deterministic, moved away from `strconv.ParseFloat` and wrote my own parser.
 - Also, moved from `scanner.Text` to `scanner.Bytes` so I can work with bytes.
 Reduced our time by circa `30s` putting as around `1:06s` now
