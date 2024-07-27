@@ -27,7 +27,7 @@ func Brc(r io.Reader) (records, []string) {
 		line := s.Bytes()
 		city, val, found := bytes.Cut(line, []byte(";"))
 		if found {
-			temp := parse(val)
+			temp := parseTemp(val)
 			r, ok := records[string(city)]
 			if !ok {
 				r = &Record{
@@ -48,13 +48,31 @@ func Brc(r io.Reader) (records, []string) {
 
 }
 
-func parse(temp []byte) int {
+// parseTemp takes bytes and returns an integer
+func parseTemp(temp []byte) int {
 	var res int
 	isNegative := false
+	// Given a string like "-12.3". We know the first byte will carry the sign
+	// We grab that if the first element is "-" and set isNegative flag to true
 	if temp[0] == '-' {
 		temp = temp[1:]
 		isNegative = true
 	}
+	// The encoding bytes of characters is in sequence like 'abcd' or '0123'.
+	// This means if I have `a` having an u8 value of 2 then b will be 3
+	// Using that same logic if I have 0 being 48 then 1 will be 49
+	// This means I can get the int value of 1 by subtracting it from 0 thus 49-48=1
+	// Also, given a value of 123, this is the same as 1*100 + 2*10 + 3.
+	// This means I can multiply each value by 10 and add to the next value
+	// Thus in a loop, you'll have:
+	//
+	// | iteration | value          |
+	// |-----------|----------------|
+	// | 1st       | (0*10)+1=1     |
+	// | 2nd       | (1*10)+2=12    |
+	// | 3rd       | (12*10)+3=123  |
+	//
+	// This gives us the int value we need.
 	for _, v := range temp {
 		if v != '.' {
 			res = (res * 10) + int(v-'0')

@@ -39,4 +39,21 @@ func TestBRC(t *testing.T) {
 		}
 	})
 
+	t.Run("parse temperature", func(t *testing.T) {
+		tt := []struct {
+			input []byte
+			want  int
+		}{
+			{input: []byte("12.3"), want: 123},
+			{input: []byte("5.6"), want: 56},
+			{input: []byte("-21.5"), want: -215},
+		}
+
+		for _, tc := range tt {
+			got := parseTemp(tc.input)
+			if got != tc.want {
+				t.Errorf("want %d got %d", tc.want, got)
+			}
+		}
+	})
 }
