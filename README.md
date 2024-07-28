@@ -41,6 +41,7 @@ time ./1brc4 -file=<filename>
 ```
 
 ## Optimizations
+These benchmarks were taken from a 2021 M1 Pro 16GB
 
 ### Naive Implementation - 2m15s
 
