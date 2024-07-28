@@ -40,6 +40,8 @@ You can also use the time command on linux to test how fast it runs.
 time ./1brc4 -file=<filename>
 ```
 
+## Optimizations
+
 ### Naive Implementation - 2m15s
 
 First naive implementation took `2:15s`
