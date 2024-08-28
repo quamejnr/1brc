@@ -5,6 +5,7 @@ import (
 	"1brcme/brc2"
 	"1brcme/brc3"
 	"1brcme/brc4"
+	"1brcme/brc5"
 	"os"
 	"testing"
 )
@@ -39,6 +40,11 @@ func BenchmarkTestBRC(b *testing.B) {
 	b.Run("brc4", func(b *testing.B) {
 		for range b.N {
 			brc4.PrintBRC(f)
+		}
+	})
+	b.Run("brc5", func(b *testing.B) {
+		for range b.N {
+			brc5.PrintBRC(f)
 		}
 	})
 }

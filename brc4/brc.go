@@ -28,7 +28,7 @@ func cut(d []byte, delim byte) (before, after []byte, found bool) {
 
 func Brc(r io.Reader) (records, []string) {
 	cities := []string{}
-	records := records{}
+  records := records{}
 
 	// Create a buffer size of 1MB.
 	buf := make([]byte, 1<<20)

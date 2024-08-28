@@ -1,7 +1,7 @@
 package main
 
 import (
-	"1brcme/brc4"
+	"1brcme/brc5"
 	"flag"
 	"log"
 	"os"
@@ -22,5 +22,5 @@ func main() {
 		defer pprof.StopCPUProfile()
 	}
 
-	brc4.PrintBRC(*file)
+	brc5.PrintBRC(*file)
 }

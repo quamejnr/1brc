@@ -67,3 +67,6 @@ First naive implementation took `2:15s`
 ### Fourth optimization - 49s
 
 - Moved from ReadSlice and called Read directly on our file using a buffer size of 1mb.
+
+### Fifth Optimization - 34s
+- Reduce re-allocations by making slices and maps with size
